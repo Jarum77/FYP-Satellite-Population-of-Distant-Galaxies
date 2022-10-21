@@ -1,0 +1,43 @@
+Metadata-Version: 2.1
+Name: diclass
+Version: 1.2.0
+Summary: converts python dictoinary to class object
+Author: Moses Dastmard
+License: UNKNOWN
+Platform: UNKNOWN
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# diclass: convert python dict to python class object
+[![PyPI Latest Release](https://img.shields.io/pypi/v/pandas.svg)](https://pypi.org/project/diclass/)
+
+## What is it?
+
+**diclass** It fully converts a python dict to a python class object and all dict keys and internal dict are converted to python class objects as well.
+
+
+```python
+# !pip install diclass
+```
+
+    Collecting diclass
+      Downloading diclass-1.0.0-py3-none-any.whl (4.2 kB)
+    Installing collected packages: diclass
+    Successfully installed diclass-1.0.0
+
+
+## Example
+
+
+```python
+from diclass import DictClass
+
+obj = DictClass({'id':1, 'data':{'name':'John', 'age':31, 'wife':{'name':'Jessica', 'age':28}}})
+
+print(obj.id, obj.data.name, obj.data.wife.name)
+```
+
+    1 John Jessica
+
+
+
