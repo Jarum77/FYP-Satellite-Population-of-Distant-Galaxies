@@ -1,0 +1,6 @@
+[submodule ".venv/Lib/site-packages/torrey_cmf"]
+	path = .venv/Lib/site-packages/torrey_cmf
+	url = https://github.com/Jarum77/torrey_cmf.git
+[submodule ".venv/Lib/site-packages/NDpredict"]
+	path = .venv/Lib/site-packages/NDpredict
+	url = https://github.com/Jarum77/NDpredict.git
