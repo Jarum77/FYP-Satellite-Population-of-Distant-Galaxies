@@ -11,7 +11,7 @@ zvals = []
 Mzfourge_vals = []
 Millus_vals = []
 
-zstep = 0.5
+zstep = 0.25
 z = 0
 
 while (z <= zf):
@@ -26,7 +26,6 @@ while (z <= zf):
     z += zstep
 
 #Graph Plotting
-
 fig, ax = plt.subplots()
 ax.yaxis.set_ticks(np.arange(8, 11.5, 0.5))
 plt.plot(zvals, Mzfourge_vals, "r", label="ZFOURGE")
