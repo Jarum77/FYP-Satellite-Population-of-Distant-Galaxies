@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 zi = 0.
 zf = 4.
-M0 = 10.5   # All stellar masses are assumed to be logarithmic
+M0 = np.log10(1.5*10**9)   # All stellar masses are assumed to be logarithmic
 
 zvals = []
 Mzfourge_vals = []
