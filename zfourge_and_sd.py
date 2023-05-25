@@ -8,15 +8,15 @@ from min_mass_func import min_mass_func
 
 zi = 0.
 zf = 4.
-M0 = 10.5   # All stellar masses are assumed to be logarithmic
+M0 = 10.78  # All stellar masses are assumed to be logarithmic
 
 zvals = []
 Mzfourge_vals = []
 Mzfourge_USD_vals = []         #Upper SD value
 Mzfourge_LSD_vals = []         #Lower SD value
 
-N0= ndp.getnum(10.5,0, massfunc="zfourge")      #Calculated from ndp.getnum for M0 = 10.5 and z = 0
-
+N0= ndp.getnum(10.75,0, massfunc="zfourge")      #Calculated from ndp.getnum for M0 = 10.5 and z = 0
+print(N0)
 zstep = 0.25
 z = 0
 
@@ -25,6 +25,9 @@ ceers_data, zgrid, pz_vals = read_in_ceers('1 2 3 6',True, 4)
 ceers_zvals = ceers_data[:,1]
 ceers_mvals = ceers_data[:,2]
 SNR = ceers_data[:,5]
+
+all_zvals = ceers_zvals
+all_mvals = ceers_mvals
 
 popt = min_mass_func(ceers_zvals, ceers_mvals, SNR)
     
@@ -89,7 +92,7 @@ while (z <= zf):
 
 print(len(ceers_mvals))
 plt.xlim([0,4])
-plt.ylim([6,11])
+plt.ylim([4,12])
 plt.rcParams["font.family"] = "serif"
 font = {'fontname':'serif'} 
 plt.xlabel("Redshift", **font)
@@ -106,17 +109,18 @@ y_ticklabels = plt.gca().get_yticklabels()
 
 for tick_label in (x_ticklabels + y_ticklabels):
     tick_label.set_fontname("serif")
+plt.scatter(all_zvals, all_mvals, marker=".", s=1.5, color="silver", label="CEERS Data")
+plt.plot(zvals, Mzfourge_USD_vals, "#DE302D", linewidth=1.5, ls="--", zorder=2, alpha=0.8)
+plt.plot(zvals, Mzfourge_vals, "#DE302D", label="Median",linewidth=1.5,)
+plt.plot(zvals, Mzfourge_LSD_vals, "#DE302D", label="Median ± σ", ls="--",alpha=0.8,linewidth=1.5,)
+plt.fill_between(x=zvals, y1=Mzfourge_LSD_vals, y2=Mzfourge_USD_vals, color="#DE302D", alpha=0.2, zorder=2)
+plt.plot(z_steps,MMF(z_steps,*popt), label="MMF", zorder=2, color="orchid", linewidth=1.5, ls="--")
+plt.fill_between(x=z_steps, y1=0, y2=MMF(z_steps,*popt), color="orchid", alpha=0.2, zorder=2)
 
-plt.plot(zvals, Mzfourge_USD_vals, "#F54833", ls="--", zorder=2)
-plt.plot(zvals, Mzfourge_vals, "#E71E06", label="Median")
-plt.plot(zvals, Mzfourge_LSD_vals, "#F54833", label="Median ± σ", ls="--",)
-#plt.plot(ceers_zvals, ceers_mvals, marker=".", markersize="2", ls="None", color="grey", label="Ceers Galaxies, total = %i" % len(ceers_mvals))
-plt.fill_between(x=zvals, y1=Mzfourge_LSD_vals, y2=Mzfourge_USD_vals, color="#FF948C", alpha=0.4, zorder=2)
-plt.plot(z_steps,MMF(z_steps,*popt), label="Minimum Mass Function", zorder=2, color="black", linewidth=1, ls="--")
+plt.legend(markerscale=5,loc='upper center', bbox_to_anchor=(0.5, 1.15), ncol=4)
+plt.tight_layout()
 
-plt.legend()
-
-plt.savefig('plots/zfourge_mass.png', dpi=300)
+plt.savefig('plots/zfourge_mass.png', dpi=300, bbox_inches='tight' )
 
 plt.show()
 
