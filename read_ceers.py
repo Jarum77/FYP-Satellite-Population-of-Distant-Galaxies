@@ -18,6 +18,7 @@ def read_in_ceers(ceers, join, zlim):
     UVcol_joined=[]
     A_V_joined=[]
     A_U_joined=[]
+    sfr_joined = []
     data=[]
     data1=[]
     data2=[]
@@ -56,7 +57,8 @@ def read_in_ceers(ceers, join, zlim):
         pzvals = prob_data['pz'][0] 
         zgrid = prob_data['zgrid'][0]
         rfU=rest_frame_mag['rfu']
-        rfV=rest_frame_mag['rfv']   
+        rfV=rest_frame_mag['rfv'] 
+        sfr_vals = mass_data['sed_lsfr']
 
         #spectroscopic
 
@@ -78,6 +80,7 @@ def read_in_ceers(ceers, join, zlim):
         UVcol=UVcol[~np.less(zvals,0)]
         A_U = A_U[~np.less(zvals,0)]
         A_V = A_V[~np.less(zvals,0)]
+        sfr_vals = sfr_vals[~np.less(zvals,0)] 
         zvals = zvals[~np.less(zvals,0)]    
 
         #Remove all negative mvals
@@ -91,6 +94,7 @@ def read_in_ceers(ceers, join, zlim):
         UVcol=UVcol[~np.less(mass_vals,0)]
         A_U = A_U[~np.less(mass_vals,0)]
         A_V = A_V[~np.less(mass_vals,0)]
+        sfr_vals = sfr_vals[~np.less(mass_vals,0)]
         mass_vals = mass_vals[~np.less(mass_vals,0)]     
         
 
@@ -106,6 +110,7 @@ def read_in_ceers(ceers, join, zlim):
             UVcol=UVcol[~np.greater(zvals,zlim)]
             A_U = A_U[~np.greater(zvals,zlim)]
             A_V = A_V[~np.greater(zvals,zlim)]
+            sfr_vals = sfr_vals[~np.greater(zvals,zlim)]
             zvals = zvals[~np.greater(zvals,zlim)]
 
         #Normalise P(z)
@@ -126,7 +131,8 @@ def read_in_ceers(ceers, join, zlim):
             pzvals_joined = np.append(pzvals_joined, pzvals)
             SNR_joined=np.append(SNR_joined,SNR)
             UVcol_joined=np.append(UVcol_joined,UVcol)
-            data = np.c_[ids_joined,rshift_joined,mass_vals_joined,ra_joined,dec_joined,SNR_joined,UVcol_joined,A_V_joined,A_U_joined]    
+            sfr_joined = np.append(sfr_joined, sfr_vals)
+            data = np.c_[ids_joined,rshift_joined,mass_vals_joined,ra_joined,dec_joined,SNR_joined,UVcol_joined,A_V_joined,A_U_joined,sfr_joined]    
         
         else:
             if i == 1:
